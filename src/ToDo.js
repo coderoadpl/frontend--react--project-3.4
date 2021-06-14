@@ -23,8 +23,20 @@ export class ToDo extends React.Component {
     }))
   }
 
-  addNewTask = () => {
-    console.log(this.state.newTaskText)
+  addNewTask = (e) => {
+    e.preventDefault()
+
+    if (!this.state.newTaskText) return
+
+    const newTask = {
+      id: Date.now(),
+      text: this.state.newTaskText,
+      isCompleted: false
+    }
+    this.setState((prevState) => ({
+      newTaskText: '',
+      tasks: prevState.tasks.concat(newTask)
+    }))
   }
 
   render () {
@@ -32,17 +44,17 @@ export class ToDo extends React.Component {
 
     return (
       <div>
-        <input
-          type={'text'}
-          value={newTaskText}
-          onChange={this.onNewTaskTextChange}
-        />
-        <br/>
-        <button
-          onClick={this.addNewTask}
-        >
-          SUBMIT
-        </button>
+        <form onSubmit={this.addNewTask}>
+          <input
+            type={'text'}
+            value={newTaskText}
+            onChange={this.onNewTaskTextChange}
+          />
+          <br/>
+          <button>
+            SUBMIT
+          </button>
+        </form>
         <ul>
           {
             tasks.map(({ id, text }) => {
