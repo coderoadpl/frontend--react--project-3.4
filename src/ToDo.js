@@ -39,6 +39,22 @@ export class ToDo extends React.Component {
     }))
   }
 
+  toggleTask = (taskId) => {
+    this.setState((prevState) => ({
+      tasks: prevState.tasks.map((task) => {
+        if (task.id !== taskId) return task
+        return {
+          ...task,
+          isCompleted: !task.isCompleted
+        }
+      })
+    }))
+  }
+
+  makeToggleTaskHandler = (taskId) => (e) => {
+    this.toggleTask(taskId)
+  }
+
   render () {
     const { tasks, newTaskText } = this.state
 
@@ -57,10 +73,16 @@ export class ToDo extends React.Component {
         </form>
         <ul>
           {
-            tasks.map(({ id, text }) => {
+            tasks.map(({ id, text, isCompleted }) => {
               return (
                 <li key={id}>
+                  {isCompleted ? '[COMPLETED]' : ''}
                   {text}
+                  <button
+                    onClick={this.makeToggleTaskHandler(id)}
+                  >
+                    TOGGLE
+                  </button>
                 </li>
               )
             })
