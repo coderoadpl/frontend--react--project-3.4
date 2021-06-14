@@ -40,6 +40,7 @@ export class ToDo extends React.Component {
   }
 
   toggleTask = (taskId) => {
+    console.log('toggleTask')
     this.setState((prevState) => ({
       tasks: prevState.tasks.map((task) => {
         if (task.id !== taskId) return task
@@ -56,6 +57,7 @@ export class ToDo extends React.Component {
   }
 
   deleteTask = (taskId) => {
+    console.log('deleteTask')
     this.setState((prevState) => ({
       tasks: prevState.tasks.filter((task) => task.id !== taskId)
     }))
@@ -81,14 +83,12 @@ export class ToDo extends React.Component {
           {
             tasks.map(({ id, text, isCompleted }) => {
               return (
-                <li key={id}>
+                <li
+                  key={id}
+                  onClick={this.makeToggleTaskHandler(id)}
+                >
                   {isCompleted ? '[COMPLETED]' : ''}
                   {text}
-                  <button
-                    onClick={this.makeToggleTaskHandler(id)}
-                  >
-                    TOGGLE
-                  </button>
                   <button
                     onClick={(e) => this.deleteTask(id)}
                   >
