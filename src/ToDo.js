@@ -55,6 +55,12 @@ export class ToDo extends React.Component {
     this.toggleTask(taskId)
   }
 
+  deleteTask = (taskId) => {
+    this.setState((prevState) => ({
+      tasks: prevState.tasks.filter((task) => task.id !== taskId)
+    }))
+  }
+
   render () {
     const { tasks, newTaskText } = this.state
 
@@ -82,6 +88,11 @@ export class ToDo extends React.Component {
                     onClick={this.makeToggleTaskHandler(id)}
                   >
                     TOGGLE
+                  </button>
+                  <button
+                    onClick={(e) => this.deleteTask(id)}
+                  >
+                    DELETE
                   </button>
                 </li>
               )
