@@ -1,5 +1,7 @@
 import React from 'react'
+
 import Button from './components/Button'
+import TextField from './components/TextField'
 
 export class ToDo extends React.Component {
   state = {
@@ -70,7 +72,7 @@ export class ToDo extends React.Component {
     return (
       <div>
         <form onSubmit={this.addNewTask}>
-          <input
+          <TextField
             type={'text'}
             value={newTaskText}
             onChange={this.onNewTaskTextChange}
@@ -90,11 +92,11 @@ export class ToDo extends React.Component {
                 >
                   {isCompleted ? '[COMPLETED]' : ''}
                   {text}
-                  <button
+                  <Button
                     onClick={(e) => this.deleteTask(id)}
                   >
                     DELETE
-                  </button>
+                  </Button>
                 </li>
               )
             })
