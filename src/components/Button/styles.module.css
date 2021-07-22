@@ -1,1 +1,13 @@
-.root {}
+.root {
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #ecf0f1;
+  transition: 0.3s ease-in-out;
+}
+
+.root:hover {
+  background-color: #bdc3c7;
+  transform: scale(1.025);
+}
