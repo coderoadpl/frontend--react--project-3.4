@@ -2,7 +2,7 @@ import React from 'react'
 
 import Button from './components/Button'
 import TextField from './components/TextField'
-import TaskItem from './components/TaskItem'
+import TasksList from './components/TasksList'
 
 export class ToDo extends React.Component {
   state = {
@@ -33,7 +33,7 @@ export class ToDo extends React.Component {
     if (!this.state.newTaskText) return
 
     const newTask = {
-      id: Date.now(),
+      id: String(Date.now()),
       text: this.state.newTaskText,
       isCompleted: false
     }
@@ -44,7 +44,6 @@ export class ToDo extends React.Component {
   }
 
   toggleTask = (taskId) => {
-    console.log('toggleTask')
     this.setState((prevState) => ({
       tasks: prevState.tasks.map((task) => {
         if (task.id !== taskId) return task
@@ -56,12 +55,7 @@ export class ToDo extends React.Component {
     }))
   }
 
-  makeToggleTaskHandler = (taskId) => (e) => {
-    this.toggleTask(taskId)
-  }
-
   deleteTask = (taskId) => {
-    console.log('deleteTask')
     this.setState((prevState) => ({
       tasks: prevState.tasks.filter((task) => task.id !== taskId)
     }))
@@ -83,26 +77,11 @@ export class ToDo extends React.Component {
             SUBMIT
           </Button>
         </form>
-        <ul>
-          {
-            tasks.map(({ id, text, isCompleted }) => {
-              return (
-                <TaskItem
-                  key={id}
-                  onClick={this.makeToggleTaskHandler(id)}
-                >
-                  {isCompleted ? '[COMPLETED]' : ''}
-                  {text}
-                  <Button
-                    onClick={(e) => this.deleteTask(id)}
-                  >
-                    DELETE
-                  </Button>
-                </TaskItem>
-              )
-            })
-          }
-        </ul>
+        <TasksList
+          tasks={tasks}
+          toggleTask={this.toggleTask}
+          deleteTask={this.deleteTask}
+        />
       </div>
     )
   }
