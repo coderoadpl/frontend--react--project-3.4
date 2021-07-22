@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 
 import classes from './styles.module.css'
 
-import TaskItem from '../TaskItem'
-import Button from '../Button'
+import TaskItem, { TaskPropType } from '../TaskItem'
 
 export const TasksList = (props) => {
   const {
@@ -21,20 +20,14 @@ export const TasksList = (props) => {
       {...otherProps}
     >
       {
-        tasks.map(({ id, text, isCompleted }) => {
+        tasks.map((task) => {
           return (
             <TaskItem
-              key={id}
-              onClick={(e) => toggleTask(id)}
-            >
-              {isCompleted ? '[COMPLETED]' : ''}
-              {text}
-              <Button
-                onClick={(e) => deleteTask(id)}
-              >
-                DELETE
-              </Button>
-            </TaskItem>
+              key={task.id}
+              task={task}
+              toggleTask={toggleTask}
+              deleteTask={deleteTask}
+            />
           )
         })
       }
@@ -45,13 +38,7 @@ export const TasksList = (props) => {
 TasksList.propTypes = {
   toggleTask: PropTypes.func,
   deleteTask: PropTypes.func,
-  tasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      text: PropTypes.string,
-      isCompleted: PropTypes.bool
-    })
-  ),
+  tasks: PropTypes.arrayOf(TaskPropType),
   className: PropTypes.string
 }
 
