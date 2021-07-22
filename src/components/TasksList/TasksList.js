@@ -36,9 +36,9 @@ export const TasksList = (props) => {
 }
 
 TasksList.propTypes = {
-  toggleTask: PropTypes.func,
-  deleteTask: PropTypes.func,
-  tasks: PropTypes.arrayOf(TaskPropType),
+  toggleTask: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired,
+  tasks: PropTypes.arrayOf(TaskPropType).isRequired,
   className: PropTypes.string
 }
 

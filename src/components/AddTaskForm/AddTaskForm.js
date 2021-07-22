@@ -35,9 +35,9 @@ export const AddTaskForm = (props) => {
 }
 
 AddTaskForm.propTypes = {
-  newTaskText: PropTypes.string,
-  addNewTask: PropTypes.func,
-  onNewTaskTextChange: PropTypes.func,
+  newTaskText: PropTypes.string.isRequired,
+  addNewTask: PropTypes.func.isRequired,
+  onNewTaskTextChange: PropTypes.func.isRequired,
   className: PropTypes.string
 }
 

@@ -40,9 +40,9 @@ export const TaskPropType = PropTypes.shape({
 })
 
 TaskItem.propTypes = {
-  deleteTask: PropTypes.func,
-  toggleTask: PropTypes.func,
-  task: TaskPropType,
+  deleteTask: PropTypes.func.isRequired,
+  toggleTask: PropTypes.func.isRequired,
+  task: TaskPropType.isRequired,
   className: PropTypes.string
 }
 
