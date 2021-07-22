@@ -22,12 +22,15 @@ export const AddTaskForm = (props) => {
       {...otherProps}
     >
       <TextField
+        className={classes.textField}
         type={'text'}
         value={newTaskText}
         onChange={onNewTaskTextChange}
       />
       <br/>
-      <Button>
+      <Button
+        className={classes.submitButton}
+      >
         SUBMIT
       </Button>
     </form>

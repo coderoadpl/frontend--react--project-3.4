@@ -1,1 +1,9 @@
 .root {}
+
+.textField {
+  margin-bottom: 8px;
+}
+
+.submitButton {
+  width: 100%;
+}
