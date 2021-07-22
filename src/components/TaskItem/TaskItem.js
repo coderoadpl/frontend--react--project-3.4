@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+
 import classes from './styles.module.css'
 
 import Button from '../Button'
@@ -28,6 +30,7 @@ export const TaskItem = (props) => {
         {text}
       </span>
       <Button
+        icon={faTrash}
         onClick={(e) => deleteTask(id)}
       >
         DELETE
