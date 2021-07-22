@@ -22,8 +22,11 @@ export const TaskItem = (props) => {
       onClick={(e) => toggleTask(id)}
       {...otherProps}
     >
-      {isCompleted ? '[COMPLETED]' : ''}
-      {text}
+      <span
+        className={isCompleted ? classes.isCompleted : ''}
+      >
+        {text}
+      </span>
       <Button
         onClick={(e) => deleteTask(id)}
       >
