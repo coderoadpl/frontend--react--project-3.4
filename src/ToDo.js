@@ -1,8 +1,7 @@
 import React from 'react'
 
-import Button from './components/Button'
-import TextField from './components/TextField'
 import TasksList from './components/TasksList'
+import AddTaskForm from './components/AddTaskForm'
 
 export class ToDo extends React.Component {
   state = {
@@ -66,17 +65,12 @@ export class ToDo extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.addNewTask}>
-          <TextField
-            type={'text'}
-            value={newTaskText}
-            onChange={this.onNewTaskTextChange}
-          />
-          <br/>
-          <Button>
-            SUBMIT
-          </Button>
-        </form>
+        <AddTaskForm
+          newTaskText={newTaskText}
+          addNewTask={this.addNewTask}
+          onNewTaskTextChange={this.onNewTaskTextChange}
+        >
+        </AddTaskForm>
         <TasksList
           tasks={tasks}
           toggleTask={this.toggleTask}
