@@ -2,6 +2,7 @@ import React from 'react'
 
 import Button from './components/Button'
 import TextField from './components/TextField'
+import TaskItem from './components/TaskItem'
 
 export class ToDo extends React.Component {
   state = {
@@ -86,7 +87,7 @@ export class ToDo extends React.Component {
           {
             tasks.map(({ id, text, isCompleted }) => {
               return (
-                <li
+                <TaskItem
                   key={id}
                   onClick={this.makeToggleTaskHandler(id)}
                 >
@@ -97,7 +98,7 @@ export class ToDo extends React.Component {
                   >
                     DELETE
                   </Button>
-                </li>
+                </TaskItem>
               )
             })
           }
