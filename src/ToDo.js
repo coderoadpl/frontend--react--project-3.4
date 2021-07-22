@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from './components/Button'
 
 export class ToDo extends React.Component {
   state = {
@@ -75,9 +76,9 @@ export class ToDo extends React.Component {
             onChange={this.onNewTaskTextChange}
           />
           <br/>
-          <button>
+          <Button>
             SUBMIT
-          </button>
+          </Button>
         </form>
         <ul>
           {
