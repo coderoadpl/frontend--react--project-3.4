@@ -4,16 +4,32 @@ import TasksList from './components/TasksList'
 import AddTaskForm from './components/AddTaskForm'
 import Message from './components/Message'
 
+import { loadTasks } from './api'
+
 export class ToDo extends React.Component {
   state = {
     newTaskText: '',
+    isLoading: true,
+    hasError: false,
     tasks: null
   }
 
-  componentDidMount () {
-    const tasksRaw = localStorage.getItem('tasks')
-    const tasks = JSON.parse(tasksRaw) || []
-    this.setState(() => ({ tasks }))
+  async componentDidMount () {
+    try {
+      const tasks = await loadTasks()
+      this.setState(() => ({
+        tasks: tasks,
+        hasError: false
+      }))
+    } catch (error) {
+      this.setState(() => ({
+        hasError: true
+      }))
+    } finally {
+      this.setState(() => ({
+        isLoading: false
+      }))
+    }
   }
 
   onNewTaskTextChange = (e) => {
@@ -61,7 +77,7 @@ export class ToDo extends React.Component {
   }
 
   render () {
-    const { tasks, newTaskText } = this.state
+    const { hasError, isLoading, tasks, newTaskText } = this.state
 
     return (
       <div>
@@ -72,21 +88,31 @@ export class ToDo extends React.Component {
         >
         </AddTaskForm>
         {
-          !tasks ?
+          hasError ?
             <Message>
-              Loading...
+              Error!
             </Message>
             :
-            tasks.length === 0 ?
+            isLoading ?
               <Message>
-                No tasks
+                Loading...
               </Message>
               :
-              <TasksList
-                tasks={tasks}
-                toggleTask={this.toggleTask}
-                deleteTask={this.deleteTask}
-              />
+                !tasks ?
+                  <Message>
+                    No data!
+                  </Message>
+                  :
+                  tasks.length === 0 ?
+                    <Message>
+                      Tasks are empty
+                    </Message>
+                    :
+                    <TasksList
+                      tasks={tasks}
+                      toggleTask={this.toggleTask}
+                      deleteTask={this.deleteTask}
+                    />
         }
       </div>
     )
