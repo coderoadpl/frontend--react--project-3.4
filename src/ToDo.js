@@ -4,7 +4,7 @@ import TasksList from './components/TasksList'
 import AddTaskForm from './components/AddTaskForm'
 import Message from './components/Message'
 
-import { loadTasks } from './api'
+import { loadTasks, saveTasks } from './api'
 
 export class ToDo extends React.Component {
   state = {
@@ -48,32 +48,37 @@ export class ToDo extends React.Component {
       text: this.state.newTaskText,
       isCompleted: false
     }
-    this.setState((prevState) => ({
-      newTaskText: '',
-      tasks: prevState.tasks.concat(newTask)
-    }))
+    this.setState(
+      (prevState) => ({
+        newTaskText: '',
+        tasks: prevState.tasks.concat(newTask)
+      }),
+      () => saveTasks(this.state.tasks)
+    )
   }
 
   toggleTask = (taskId) => {
-    this.setState((prevState) => ({
-      tasks: prevState.tasks.map((task) => {
-        if (task.id !== taskId) return task
-        return {
-          ...task,
-          isCompleted: !task.isCompleted
-        }
-      })
-    }))
+    this.setState(
+      (prevState) => ({
+        tasks: prevState.tasks.map((task) => {
+          if (task.id !== taskId) return task
+          return {
+            ...task,
+            isCompleted: !task.isCompleted
+          }
+        })
+      }),
+      () => saveTasks(this.state.tasks)
+    )
   }
 
   deleteTask = (taskId) => {
-    this.setState((prevState) => ({
-      tasks: prevState.tasks.filter((task) => task.id !== taskId)
-    }))
-  }
-
-  componentDidUpdate () {
-    localStorage.setItem('tasks', JSON.stringify(this.state.tasks))
+    this.setState(
+      (prevState) => ({
+        tasks: prevState.tasks.filter((task) => task.id !== taskId)
+      }),
+      () => saveTasks(this.state.tasks)
+    )
   }
 
   render () {
