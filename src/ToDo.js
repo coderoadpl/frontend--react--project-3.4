@@ -56,6 +56,10 @@ export class ToDo extends React.Component {
     }))
   }
 
+  componentDidUpdate () {
+    localStorage.setItem('tasks', JSON.stringify(this.state.tasks))
+  }
+
   render () {
     const { tasks, newTaskText } = this.state
 
