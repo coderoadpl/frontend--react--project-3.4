@@ -2,22 +2,18 @@ import React from 'react'
 
 import TasksList from './components/TasksList'
 import AddTaskForm from './components/AddTaskForm'
+import Message from './components/Message'
 
 export class ToDo extends React.Component {
   state = {
     newTaskText: '',
-    tasks: [
-      {
-        id: '123',
-        text: 'Wynieś śmieci',
-        isCompleted: false
-      },
-      {
-        id: '321',
-        text: 'Zmyj naczynia',
-        isCompleted: false
-      }
-    ]
+    tasks: null
+  }
+
+  componentDidMount () {
+    const tasksRaw = localStorage.getItem('tasks')
+    const tasks = JSON.parse(tasksRaw) || []
+    this.setState(() => ({ tasks }))
   }
 
   onNewTaskTextChange = (e) => {
@@ -71,11 +67,23 @@ export class ToDo extends React.Component {
           onNewTaskTextChange={this.onNewTaskTextChange}
         >
         </AddTaskForm>
-        <TasksList
-          tasks={tasks}
-          toggleTask={this.toggleTask}
-          deleteTask={this.deleteTask}
-        />
+        {
+          !tasks ?
+            <Message>
+              Loading...
+            </Message>
+            :
+            tasks.length === 0 ?
+              <Message>
+                No tasks
+              </Message>
+              :
+              <TasksList
+                tasks={tasks}
+                toggleTask={this.toggleTask}
+                deleteTask={this.deleteTask}
+              />
+        }
       </div>
     )
   }
